@@ -1,0 +1,10 @@
+services:
+  local_database:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
+      POSTGRES_DB: security
+    restart: unless-stopped

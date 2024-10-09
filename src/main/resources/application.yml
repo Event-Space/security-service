@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: security-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/security
+    username: user
+    password: user
+  flyway:
+    enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+jwt:
+  secret: bvrbheiHIFEWGIvbewih7328329p80g9^&@%!(*(gvhwjvbewiGyuvbkj3gf3y2gu
+
+eureka:
+  client:
+    enabled: false
