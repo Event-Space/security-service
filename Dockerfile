@@ -7,7 +7,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y wget curl
 
 RUN curl -s https://github.com/Event-Space/security-service/releases/latest \
-    | grep tgbot.jar \
+    | grep security-service.jar \
     | tail -n 1 \
     | cut -d : -f 2,3 \
     | tr -d \" \
