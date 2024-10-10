@@ -11,6 +11,8 @@ RUN curl -s https://github.com/Event-Space/security-service/releases/latest \
     | tail -n 1 \
     | cut -d : -f 2,3 \
     | tr -d \" \
-    | wget -qi -
+    | wget -qi - \
+
+CMD ["chmod", "+x", "security-service.jar"]
 
 CMD ["java", "-jar", "security-service.jar"]
