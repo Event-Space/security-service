@@ -4,8 +4,6 @@ EXPOSE 8080
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y wget curl
-
-RUN curl -s https://api.github.com/repos/Event-Space/security-service/releases/latest | grep security-service.jar | tail -n 1 | cut -d : -f 2,3 | tr -d \" | wget -qi -
+COPY build/libs/security-service-1.0.jar security-service.jar
 
 CMD ["java", "-jar", "security-service.jar"]

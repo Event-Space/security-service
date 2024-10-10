@@ -16,6 +16,7 @@ services:
       DB_NAME: security
       DB_USERNAME: user
       DB_PASSWORD: user
+      JWT_SECRET: here_is_the_jwt_secret_override_it_please!
     ports:
       - "10001:8080"
     restart: unless-stopped
