@@ -25,6 +25,9 @@ class ExceptionHandler {
 
     @ExceptionHandler(ResponseStatusException::class)
     fun handleResponseStatusException(e: ResponseStatusException): ResponseEntity<ExceptionDTO> {
-        return ResponseEntity(ExceptionDTO(e.reason), e.statusCode)
+        return when (e.reason) {
+            null -> ResponseEntity(e.statusCode)
+            else -> ResponseEntity(ExceptionDTO(e.reason), e.statusCode)
+        }
     }
 }

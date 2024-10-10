@@ -22,6 +22,9 @@ data class User(
     var phoneNumber: String?,
     @Enumerated(EnumType.ORDINAL)
     var role: Roles = Roles.USER,
+
+    @OneToMany(mappedBy = "user")
+    var refreshTokens: MutableList<RefreshToken> = mutableListOf()
 )
 
 enum class Roles {
