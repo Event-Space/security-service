@@ -3,7 +3,7 @@ package org.kenuki.securityservice.core.entities
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "user_unit")
 data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

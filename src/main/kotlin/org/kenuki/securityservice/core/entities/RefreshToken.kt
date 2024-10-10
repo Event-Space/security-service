@@ -4,6 +4,7 @@ import jakarta.persistence.*
 import java.util.*
 
 @Entity
+@Table(schema = "user_unit")
 data class RefreshToken(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

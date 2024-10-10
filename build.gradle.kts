@@ -41,6 +41,9 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
 	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
+	// https://mvnrepository.com/artifact/org.flywaydb/flyway-database-postgresql
+	runtimeOnly("org.flywaydb:flyway-database-postgresql")
+
 
 
 

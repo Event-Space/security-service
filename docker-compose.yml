@@ -1,22 +1,27 @@
 services:
   main-database:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     ports:
       - "127.0.0.1:10000:5432"
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: user
-      POSTGRES_DB: security
+      POSTGRES_DB: event-space
     restart: unless-stopped
+    volumes:
+      - main-database:/var/lib/postgresql/data
   security-service:
     image: thejustrusik/event-space-security-service:latest
     environment:
       DB_HOST: main-database
       DB_PORT: 5432
-      DB_NAME: security
+      DB_NAME: event-space
       DB_USERNAME: user
       DB_PASSWORD: user
       JWT_SECRET: here_is_the_jwt_secret_override_it_please!
     ports:
       - "10001:8080"
     restart: unless-stopped
+
+volumes:
+  main-database:
