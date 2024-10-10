@@ -10,6 +10,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+springdoc:
+  api-docs:
+    enabled: true
+    path: /security-api
+  swagger-ui:
+    path: /swagger
 jwt:
   secret: bvrbheiHIFEWGIvbewih7328329p80g9^&@%!(*(gvhwjvbewiGyuvbkj3gf3y2gu
 

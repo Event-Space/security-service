@@ -49,15 +49,7 @@ class AuthService(
 
     fun login(loginDTO: LoginDTO): ResponseEntity<TokenDTO> {
         val user: User = loginDTO.run {
-            when {
-                email.isNullOrBlank() && username.isNullOrBlank() -> throw ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Email or Username is required"
-                )
-
-                !email.isNullOrBlank() -> userRepo.findByEmail(email)
-                else -> userRepo.findByUsername(username!!)
-            }
+            userRepo.findByUsername(emailOrUsername) ?: userRepo.findByEmail(emailOrUsername)
         } ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
 
         if (!passwordEncoder.matches(loginDTO.password, user.password))
