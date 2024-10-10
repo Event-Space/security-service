@@ -6,13 +6,11 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y wget curl
 
-RUN curl -s https://github.com/Event-Space/security-service/releases/latest \
+RUN curl -s https://api.github.com/repos/Event-Space/security-service/releases/latest  \
     | grep security-service.jar \
     | tail -n 1 \
     | cut -d : -f 2,3 \
     | tr -d \" \
     | wget -qi - \
-
-CMD ["chmod", "+x", "security-service.jar"]
 
 CMD ["java", "-jar", "security-service.jar"]
