@@ -1,9 +1,8 @@
 package org.kenuki.securityservice.web.dtos.request
 
-data class RegisterDTO(
+data class UpdateProfileDTO(
     val phone: String?,
-    val email: String,
     val firstName: String?,
     val lastName: String?,
-    var password: String
+    var password: String?
 )

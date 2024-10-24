@@ -1,5 +1,7 @@
 package org.kenuki.securityservice.core.utils
 
+import io.jsonwebtoken.Claims
+import io.jsonwebtoken.Jwt
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import org.kenuki.securityservice.core.ACCESS_LIFETIME_IN_MS
@@ -22,7 +24,6 @@ class JwtUtil {
         val due = Date(now.time + ACCESS_LIFETIME_IN_MS)
         val claims = mapOf(
             "user_id" to user.id,
-            "username" to user.username,
             "email" to user.email,
             "first_name" to user.firstName,
             "last_name" to user.lastName,
@@ -37,18 +38,17 @@ class JwtUtil {
             .compact()
     }
 
-    fun validateToken(token: String): Boolean {
+    fun extractTokenPayload(token: String): Any? {
         try {
-            Jwts.parser()
+            return Jwts.parser()
                 .verifyWith(key())
                 .build()
                 .parse(token)
+                .payload
         } catch (e: Exception) {
             logger.info("Failed to validate token ${e.message}")
-            return false
+            return null
         }
-        return true
-
     }
 
     fun key(): SecretKey {

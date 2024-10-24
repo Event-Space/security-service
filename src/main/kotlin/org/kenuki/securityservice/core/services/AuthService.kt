@@ -1,5 +1,6 @@
 package org.kenuki.securityservice.core.services
 
+import org.kenuki.securityservice.core.entities.Roles
 import org.kenuki.securityservice.core.entities.User
 import org.kenuki.securityservice.core.repos.RefreshTokenRepo
 import org.kenuki.securityservice.core.repos.UserRepo
@@ -35,11 +36,12 @@ class AuthService(
         }
 
         val newUser = User(
-            username = registerDTO.username,
             email = registerDTO.email,
-            password = registerDTO.password,
             firstName = registerDTO.firstName,
+            lastName = registerDTO.lastName,
+            password = registerDTO.password,
             phoneNumber = registerDTO.phone,
+            role = Roles.USER
         )
 
         userRepo.save(newUser)
@@ -49,7 +51,7 @@ class AuthService(
 
     fun login(loginDTO: LoginDTO): ResponseEntity<TokenDTO> {
         val user: User = loginDTO.run {
-            userRepo.findByUsername(emailOrUsername) ?: userRepo.findByEmail(emailOrUsername)
+            userRepo.findByEmail(emailOrUsername)
         } ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
 
         if (!passwordEncoder.matches(loginDTO.password, user.password))
@@ -74,8 +76,6 @@ class AuthService(
     private fun validateNewUser(registerDTO: RegisterDTO) {
         if (userRepo.existsByEmail(registerDTO.email))
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists!")
-        if (userRepo.existsByUsername(registerDTO.username))
-            throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists!")
         registerDTO.phone?.run {
             if (userRepo.existsByPhoneNumber(this))
                 throw ResponseStatusException(HttpStatus.BAD_REQUEST, "Phone number already exists!")

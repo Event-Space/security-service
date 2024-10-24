@@ -9,17 +9,15 @@ data class User(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
     @Column(length = 64, nullable = false, unique = true)
-    var username: String,
-    @Column(length = 64, nullable = false, unique = true)
     var email: String,
-    @Column(length = 64, nullable = false)
-    var firstName: String,
-    @Column(length = 64, nullable = true)
+    @Column(length = 64)
+    var firstName: String? = null,
+    @Column(length = 64)
     var lastName: String? = null,
-    @Column(length = 80, nullable = true)
+    @Column(length = 80)
     var password: String,
-    @Column(length = 15, nullable = false, unique = true)
-    var phoneNumber: String?,
+    @Column(length = 15)
+    var phoneNumber: String? = null,
     @Enumerated(EnumType.ORDINAL)
     var role: Roles = Roles.USER,
 

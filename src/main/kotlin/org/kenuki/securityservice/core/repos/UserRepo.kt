@@ -9,12 +9,6 @@ interface UserRepo : JpaRepository<User, Long> {
     fun findByEmail(email: String): User?
 
     @Transactional(readOnly = true)
-    fun findByUsername(username: String): User?
-
-    @Transactional(readOnly = true)
-    fun existsByUsername(username: String): Boolean
-
-    @Transactional(readOnly = true)
     fun existsByEmail(email: String): Boolean
 
     @Transactional(readOnly = true)

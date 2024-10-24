@@ -1,3 +1,5 @@
+import org.gradle.internal.impldep.bsh.commands.dir
+
 plugins {
 	kotlin("jvm") version "1.9.25"
 	kotlin("plugin.spring") version "1.9.25"
@@ -17,6 +19,9 @@ java {
 
 repositories {
 	mavenCentral()
+	flatDir {
+		dirs("libs")
+	}
 }
 
 extra["springCloudVersion"] = "2023.0.3"
@@ -43,6 +48,7 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
 	// https://mvnrepository.com/artifact/org.flywaydb/flyway-database-postgresql
 	runtimeOnly("org.flywaydb:flyway-database-postgresql")
+	implementation(":security-module:0.0.1-SNAPSHOT-plain")
 
 
 
