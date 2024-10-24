@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 
+@CrossOrigin(origins = ["*"])
 @RestController
 @RequestMapping("/api/user")
 class UserController (

@@ -6,11 +6,9 @@ import org.kenuki.securityservice.core.services.AuthService
 import org.kenuki.securityservice.web.dtos.request.LoginDTO
 import org.kenuki.securityservice.web.dtos.request.RefreshDTO
 import org.kenuki.securityservice.web.dtos.request.RegisterDTO
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
+@CrossOrigin(origins = ["*"])
 @RestController
 @RequestMapping("/api/auth")
 @Tag(name = "AuthController", description = "Here user can login, register and refresh tokens")
