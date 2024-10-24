@@ -17,8 +17,8 @@ class AppConfig {
     fun customOpenApi(): OpenAPI {
         return OpenAPI()
             .servers(listOf(
-                Server().url("http://localhost:8080").description("Local server"),
                 Server().url("https://server.kenuki.org").description("Prod server"),
+                Server().url("http://localhost:8080").description("Local server")
             ))
     }
 }
