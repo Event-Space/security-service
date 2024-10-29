@@ -14,10 +14,10 @@ import java.util.*
 import javax.crypto.SecretKey
 
 @Component
-class JwtUtil {
+class JwtGenerator {
     @Value("\${jwt.secret}")
     var jwtKey: String = "d"
-    val logger: Logger = LoggerFactory.getLogger(JwtUtil::class.java)
+    val logger: Logger = LoggerFactory.getLogger(JwtGenerator::class.java)
 
     fun generateToken(user: User): String {
         val now = Date()

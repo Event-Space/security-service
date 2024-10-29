@@ -1,9 +1,11 @@
 package org.kenuki.securityservice.core.services
 
+
+import org.kenuki.securitymodule.util.JwtUtil
 import org.apache.http.HttpResponse
 import org.kenuki.securityservice.core.entities.User
 import org.kenuki.securityservice.core.repos.UserRepo
-import org.kenuki.securityservice.core.utils.JwtUtil
+import org.kenuki.securityservice.core.utils.JwtGenerator
 import org.kenuki.securityservice.web.dtos.request.UpdateProfileDTO
 import org.kenuki.securityservice.web.dtos.response.AccessTokenDTO
 import org.springframework.http.HttpStatus
@@ -15,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException
 @Service
 class UserService(
     private val jwtUtil: JwtUtil,
+    private val jwtGenerator: JwtGenerator,
     private val userRepo: UserRepo,
     private val passwordEncoder: PasswordEncoder,
 ) {
@@ -35,7 +38,7 @@ class UserService(
         user.phoneNumber = updateProfileDTO.phone
 
         userRepo.save(user)
-        return ResponseEntity.ok(AccessTokenDTO(jwtUtil.generateToken(user)));
+        return ResponseEntity.ok(AccessTokenDTO(jwtGenerator.generateToken(user)));
 
     }
 }

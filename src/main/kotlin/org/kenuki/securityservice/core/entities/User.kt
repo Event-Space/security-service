@@ -1,6 +1,7 @@
 package org.kenuki.securityservice.core.entities
 
 import jakarta.persistence.*
+import org.kenuki.securitymodule.util.Roles
 
 @Entity
 @Table(name = "users", schema = "user_unit")
@@ -24,7 +25,3 @@ data class User(
     @OneToMany(mappedBy = "user")
     var refreshTokens: MutableList<RefreshToken> = mutableListOf()
 )
-
-enum class Roles {
-    USER, MANAGER, ADMIN
-}

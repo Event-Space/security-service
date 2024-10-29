@@ -1,8 +1,6 @@
 package org.kenuki.securityservice.web.controllers
 
-import org.kenuki.securityservice.core.entities.User
 import org.kenuki.securityservice.core.services.UserService
-import org.kenuki.securityservice.web.dtos.request.RegisterDTO
 import org.kenuki.securityservice.web.dtos.request.UpdateProfileDTO
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*

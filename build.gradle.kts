@@ -48,7 +48,7 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
 	// https://mvnrepository.com/artifact/org.flywaydb/flyway-database-postgresql
 	runtimeOnly("org.flywaydb:flyway-database-postgresql")
-	implementation(":security-module:0.0.1-SNAPSHOT-plain")
+	implementation(":security-module:1.0-plain")
 
 
 

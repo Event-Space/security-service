@@ -1,10 +1,11 @@
 package org.kenuki.securityservice.core.services
 
-import org.kenuki.securityservice.core.entities.Roles
+import org.kenuki.securitymodule.util.Roles
+import org.kenuki.securitymodule.util.JwtUtil
 import org.kenuki.securityservice.core.entities.User
 import org.kenuki.securityservice.core.repos.RefreshTokenRepo
 import org.kenuki.securityservice.core.repos.UserRepo
-import org.kenuki.securityservice.core.utils.JwtUtil
+import org.kenuki.securityservice.core.utils.JwtGenerator
 import org.kenuki.securityservice.core.utils.RefreshUtil
 import org.kenuki.securityservice.web.dtos.request.LoginDTO
 import org.kenuki.securityservice.web.dtos.request.RefreshDTO
@@ -22,6 +23,7 @@ import org.springframework.web.server.ResponseStatusException
 class AuthService(
     val userRepo: UserRepo,
     val passwordEncoder: PasswordEncoder,
+    val jwtGenerator: JwtGenerator,
     val jwtUtil: JwtUtil,
     val refreshUtil: RefreshUtil,
     val refreshTokenRepo: RefreshTokenRepo,
@@ -57,7 +59,7 @@ class AuthService(
         if (!passwordEncoder.matches(loginDTO.password, user.password))
             return ResponseEntity(HttpStatus.UNAUTHORIZED)
 
-        val accessToken = jwtUtil.generateToken(user)
+        val accessToken = jwtGenerator.generateToken(user)
         val refreshToken = refreshUtil.generateRefreshToken(user).refreshToken!!
 
         return ResponseEntity.ok(TokenDTO(refreshToken, accessToken))
@@ -68,7 +70,7 @@ class AuthService(
             .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND) }
 
         val newRefreshToken = refreshUtil.rotateRefreshToken(refreshToken)
-        val newAccessToken = jwtUtil.generateToken(refreshToken.user)
+        val newAccessToken = jwtGenerator.generateToken(refreshToken.user)
 
         return ResponseEntity.ok(TokenDTO(newRefreshToken, newAccessToken))
     }
