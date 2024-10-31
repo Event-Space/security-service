@@ -32,10 +32,19 @@ class UserService(
             else -> throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Malformed token")
         }
         val user = userRepo.findById(userId).get()
-        user.lastName = updateProfileDTO.lastName
-        user.firstName = updateProfileDTO.firstName
-        user.password = passwordEncoder.encode(updateProfileDTO.password)
-        user.phoneNumber = updateProfileDTO.phone
+
+        if (updateProfileDTO.lastName != null) {
+            user.lastName = updateProfileDTO.lastName
+        }
+        if (updateProfileDTO.firstName != null) {
+            user.firstName = updateProfileDTO.firstName
+        }
+        if (updateProfileDTO.password != null) {
+            user.password = passwordEncoder.encode(updateProfileDTO.password)
+        }
+        if (updateProfileDTO.phone != null) {
+            user.phoneNumber = updateProfileDTO.phone
+        }
 
         userRepo.save(user)
         return ResponseEntity.ok(AccessTokenDTO(jwtGenerator.generateToken(user)));
