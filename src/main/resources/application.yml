@@ -14,6 +14,9 @@ springdoc:
 jwt:
   secret: ${JWT_SECRET:here_is_the_jwt_secret_override_it_please!}
 
+security:
+  jwt: ${JWT_SECRET:here_is_the_jwt_secret_override_it_please!}
+
 eureka:
   client:
     enabled: false

@@ -1,5 +1,6 @@
 package org.kenuki.securityservice.web.controllers
 
+import org.kenuki.securitymodule.annotations.SecureMe
 import org.kenuki.securityservice.core.services.UserService
 import org.kenuki.securityservice.web.dtos.request.UpdateProfileDTO
 import org.springframework.http.HttpStatus
@@ -12,11 +13,10 @@ import org.springframework.web.server.ResponseStatusException
 class UserController (
     val userService: UserService,
 ) {
+    @SecureMe
     @GetMapping("/profile")
     fun getUserProfile(@RequestHeader("Authorization") authHeader: String?): Any? {
-        if (authHeader == null)
-            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "No Authorization header provided")
-        return userService.getUserProfile(authHeader.substringAfter("Bearer "))
+        return userService.getUserProfile(authHeader!!.substringAfter("Bearer "))
     }
 
     @PostMapping("/profile-update")
