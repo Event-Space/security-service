@@ -10,10 +10,10 @@ import org.springframework.web.server.ResponseStatusException
 @CrossOrigin(origins = ["*"])
 @RestController
 @RequestMapping("/api/user")
+@SecureMe
 class UserController (
     val userService: UserService,
 ) {
-    @SecureMe
     @GetMapping("/profile")
     fun getUserProfile(@RequestHeader("Authorization") authHeader: String?): Any? {
         return userService.getUserProfile(authHeader!!.substringAfter("Bearer "))
