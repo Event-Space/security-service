@@ -1,7 +1,5 @@
 package org.kenuki.securityservice.core.utils
 
-import io.jsonwebtoken.Claims
-import io.jsonwebtoken.Jwt
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import org.kenuki.securityservice.core.ACCESS_LIFETIME_IN_MS
@@ -15,8 +13,8 @@ import javax.crypto.SecretKey
 
 @Component
 class JwtGenerator {
-    @Value("\${jwt.secret}")
-    var jwtKey: String = "d"
+    @Value("\${security.jwt}")
+    var jwtKey: String = ""
     val logger: Logger = LoggerFactory.getLogger(JwtGenerator::class.java)
 
     fun generateToken(user: User): String {
@@ -36,19 +34,6 @@ class JwtGenerator {
             .claims(claims)
             .signWith(key())
             .compact()
-    }
-
-    fun extractTokenPayload(token: String): Any? {
-        try {
-            return Jwts.parser()
-                .verifyWith(key())
-                .build()
-                .parse(token)
-                .payload
-        } catch (e: Exception) {
-            logger.info("Failed to validate token ${e.message}")
-            return null
-        }
     }
 
     fun key(): SecretKey {

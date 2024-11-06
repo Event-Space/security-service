@@ -1,7 +1,7 @@
 package org.kenuki.securityservice.core.services
 
 import org.kenuki.securitymodule.util.Roles
-import org.kenuki.securitymodule.util.JwtUtil
+import org.kenuki.securitymodule.services.JwtUtil
 import org.kenuki.securityservice.core.entities.User
 import org.kenuki.securityservice.core.repos.RefreshTokenRepo
 import org.kenuki.securityservice.core.repos.UserRepo

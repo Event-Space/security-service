@@ -1,17 +1,25 @@
 package org.kenuki.securityservice.core.services
 
 
-import org.kenuki.securitymodule.util.JwtUtil
+import jakarta.servlet.http.HttpSession
+import org.apache.catalina.Manager
+import org.kenuki.securitymodule.services.JwtUtil
 import org.apache.http.HttpResponse
+import org.kenuki.securitymodule.sessions.SessionMe
+import org.kenuki.securitymodule.util.ATTR_USERID
+import org.kenuki.securitymodule.util.Roles
 import org.kenuki.securityservice.core.entities.User
 import org.kenuki.securityservice.core.repos.UserRepo
 import org.kenuki.securityservice.core.utils.JwtGenerator
 import org.kenuki.securityservice.web.dtos.request.UpdateProfileDTO
 import org.kenuki.securityservice.web.dtos.response.AccessTokenDTO
+import org.kenuki.securityservice.web.dtos.response.UserDTO
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.web.context.request.RequestAttributes
+import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.server.ResponseStatusException
 
 @Service
@@ -21,16 +29,20 @@ class UserService(
     private val userRepo: UserRepo,
     private val passwordEncoder: PasswordEncoder,
 ) {
-    fun getUserProfile(token: String): Any? {
-        return jwtUtil.extractTokenPayload(token) ?: throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Malformed token")
+    fun getUserProfile(session: SessionMe): ResponseEntity<UserDTO> {
+        val userDTO = UserDTO(
+            session.getAttribute<String>("email"),
+            session.getAttribute<String>("first_name"),
+            session.getAttribute<String>("last_name"),
+            session.getAttribute<String>("phone_number"),
+            session.getAttribute<Roles>("role")?.name,
+        )
+        return ResponseEntity.ok(userDTO)
     }
-    fun updateUserProfile(token: String, updateProfileDTO: UpdateProfileDTO): Any {
-        val payload = (jwtUtil.extractTokenPayload(token) ?: throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Malformed token")) as Map<*, *>
-        val userId = when (val id = payload["user_id"]) {
-            is Int -> id.toLong()
-            is Long -> id.toLong()
-            else -> throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Malformed token")
-        }
+
+    fun updateUserProfile(updateProfileDTO: UpdateProfileDTO): Any {
+        val userId = RequestContextHolder.getRequestAttributes()?.getAttribute(ATTR_USERID, RequestAttributes.SCOPE_REQUEST) as Long
+
         val user = userRepo.findById(userId).get()
 
         if (updateProfileDTO.lastName != null) {
