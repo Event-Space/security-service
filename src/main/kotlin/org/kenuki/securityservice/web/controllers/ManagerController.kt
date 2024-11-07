@@ -4,11 +4,11 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.kenuki.securitymodule.annotations.SecureMe
 import org.kenuki.securitymodule.util.Roles
-import org.kenuki.securityservice.core.entities.User
 import org.kenuki.securityservice.core.services.ManagerService
 import org.kenuki.securityservice.web.dtos.request.CreateUserDTO
 import org.springframework.web.bind.annotation.*
 
+@CrossOrigin(origins = ["*"])
 @RestController
 @RequestMapping("/api/manager")
 @Tag(name = "ManagerController", description = "Here all endpoints require authorization and role MANAGER or ADMIN")

@@ -11,8 +11,6 @@ springdoc:
     path: /security-api
   swagger-ui:
     path: /swagger
-jwt:
-  secret: ${JWT_SECRET:here_is_the_jwt_secret_override_it_please!}
 
 security:
   jwt: ${JWT_SECRET:here_is_the_jwt_secret_override_it_please!}

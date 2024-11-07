@@ -4,8 +4,6 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import org.kenuki.securityservice.core.ACCESS_LIFETIME_IN_MS
 import org.kenuki.securityservice.core.entities.User
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.util.*
@@ -15,7 +13,6 @@ import javax.crypto.SecretKey
 class JwtGenerator {
     @Value("\${security.jwt}")
     var jwtKey: String = ""
-    val logger: Logger = LoggerFactory.getLogger(JwtGenerator::class.java)
 
     fun generateToken(user: User): String {
         val now = Date()

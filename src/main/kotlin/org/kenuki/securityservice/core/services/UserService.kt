@@ -1,30 +1,22 @@
 package org.kenuki.securityservice.core.services
 
 
-import jakarta.servlet.http.HttpSession
-import org.apache.catalina.Manager
-import org.kenuki.securitymodule.services.JwtUtil
-import org.apache.http.HttpResponse
 import org.kenuki.securitymodule.sessions.SessionMe
 import org.kenuki.securitymodule.util.ATTR_USERID
 import org.kenuki.securitymodule.util.Roles
-import org.kenuki.securityservice.core.entities.User
 import org.kenuki.securityservice.core.repos.UserRepo
 import org.kenuki.securityservice.core.utils.JwtGenerator
 import org.kenuki.securityservice.web.dtos.request.UpdateProfileDTO
 import org.kenuki.securityservice.web.dtos.response.AccessTokenDTO
 import org.kenuki.securityservice.web.dtos.response.UserDTO
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.context.request.RequestAttributes
 import org.springframework.web.context.request.RequestContextHolder
-import org.springframework.web.server.ResponseStatusException
 
 @Service
 class UserService(
-    private val jwtUtil: JwtUtil,
     private val jwtGenerator: JwtGenerator,
     private val userRepo: UserRepo,
     private val passwordEncoder: PasswordEncoder,
@@ -59,7 +51,7 @@ class UserService(
         }
 
         userRepo.save(user)
-        return ResponseEntity.ok(AccessTokenDTO(jwtGenerator.generateToken(user)));
+        return ResponseEntity.ok(AccessTokenDTO(jwtGenerator.generateToken(user)))
 
     }
 }

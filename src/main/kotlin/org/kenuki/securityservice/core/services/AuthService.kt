@@ -1,7 +1,6 @@
 package org.kenuki.securityservice.core.services
 
 import org.kenuki.securitymodule.util.Roles
-import org.kenuki.securitymodule.services.JwtUtil
 import org.kenuki.securityservice.core.entities.User
 import org.kenuki.securityservice.core.repos.RefreshTokenRepo
 import org.kenuki.securityservice.core.repos.UserRepo
@@ -24,7 +23,6 @@ class AuthService(
     val userRepo: UserRepo,
     val passwordEncoder: PasswordEncoder,
     val jwtGenerator: JwtGenerator,
-    val jwtUtil: JwtUtil,
     val refreshUtil: RefreshUtil,
     val refreshTokenRepo: RefreshTokenRepo,
 ) {

@@ -4,7 +4,6 @@ import org.kenuki.securitymodule.util.Roles
 import org.kenuki.securityservice.core.entities.User
 import org.kenuki.securityservice.core.repos.UserRepo
 import org.kenuki.securityservice.web.dtos.request.CreateUserDTO
-import org.kenuki.securityservice.web.dtos.request.RegisterDTO
 import org.kenuki.securityservice.web.dtos.response.UserDTO
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -59,7 +58,7 @@ class ManagerService (
     @Transactional
     fun deleteUser(userEmail: String): ResponseEntity<Any> {
         val user = userRepo.findByEmail(userEmail) ?: throw ResponseStatusException(HttpStatus.BAD_REQUEST, "User with email $userEmail does not exist")
-        userRepo.deleteUserById(user.id!!);
+        userRepo.deleteUserById(user.id!!)
         return ResponseEntity(HttpStatus.OK)
     }
 }
