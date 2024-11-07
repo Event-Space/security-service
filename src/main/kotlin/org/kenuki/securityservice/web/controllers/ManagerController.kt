@@ -32,4 +32,8 @@ class ManagerController (
     @DeleteMapping("/users")
     @SecureMe([Roles.MANAGER, Roles.ADMIN])
     fun deleteUser(@RequestParam userEmail: String) = managerService.deleteUser(userEmail)
+
+    @GetMapping("/users-count")
+    @SecureMe([Roles.MANAGER, Roles.ADMIN])
+    fun countUsers() = managerService.countUsers()
 }

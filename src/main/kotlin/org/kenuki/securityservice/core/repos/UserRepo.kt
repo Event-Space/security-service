@@ -16,4 +16,6 @@ interface UserRepo : JpaRepository<User, Long> {
 
     fun deleteUserById(userId: Long)
 
+    @Transactional(readOnly = true)
+    fun countAllUsers(): Long
 }

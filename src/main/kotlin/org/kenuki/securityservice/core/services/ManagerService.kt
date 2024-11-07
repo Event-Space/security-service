@@ -61,4 +61,6 @@ class ManagerService (
         userRepo.deleteUserById(user.id!!)
         return ResponseEntity(HttpStatus.OK)
     }
+
+    fun countUsers() = userRepo.countAllUsers()
 }
