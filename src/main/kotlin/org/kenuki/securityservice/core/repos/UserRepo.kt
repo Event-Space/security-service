@@ -15,7 +15,4 @@ interface UserRepo : JpaRepository<User, Long> {
     fun existsByPhoneNumber(phoneNumber: String): Boolean
 
     fun deleteUserById(userId: Long)
-
-    @Transactional(readOnly = true)
-    fun countAllUsers(): Long
 }

@@ -62,5 +62,5 @@ class ManagerService (
         return ResponseEntity(HttpStatus.OK)
     }
 
-    fun countUsers() = userRepo.countAllUsers()
+    fun countUsers() = userRepo.count()
 }
