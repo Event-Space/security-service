@@ -22,6 +22,6 @@ data class User(
     @Enumerated(EnumType.ORDINAL)
     var role: Roles = Roles.USER,
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = [CascadeType.REMOVE])
     var refreshTokens: MutableList<RefreshToken> = mutableListOf()
 )
