@@ -6,7 +6,8 @@ spring:
     username: ${DB_USERNAME:user}
     password: ${DB_PASSWORD:user}
   flyway:
-    sql-migration-prefix: SECURITY_V
+    create-schemas: true
+    default-schema: user_unit
 springdoc:
   api-docs:
     enabled: true
