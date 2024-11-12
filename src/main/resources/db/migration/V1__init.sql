@@ -1,5 +1,3 @@
-CREATE SCHEMA user_unit
-
 CREATE TABLE user_unit.refresh_token
 (
     refresh_token   VARCHAR(255) NOT NULL,
