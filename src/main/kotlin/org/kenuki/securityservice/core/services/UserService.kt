@@ -9,11 +9,13 @@ import org.kenuki.securityservice.core.utils.JwtGenerator
 import org.kenuki.securityservice.web.dtos.request.UpdateProfileDTO
 import org.kenuki.securityservice.web.dtos.response.AccessTokenDTO
 import org.kenuki.securityservice.web.dtos.response.UserDTO
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.context.request.RequestAttributes
 import org.springframework.web.context.request.RequestContextHolder
+import org.springframework.web.server.ResponseStatusException
 
 @Service
 class UserService(
@@ -32,8 +34,11 @@ class UserService(
         return ResponseEntity.ok(userDTO)
     }
 
-    fun updateUserProfile(updateProfileDTO: UpdateProfileDTO): Any {
-        val userId = RequestContextHolder.getRequestAttributes()?.getAttribute(ATTR_USERID, RequestAttributes.SCOPE_REQUEST) as Long
+    fun updateUserProfile(session: SessionMe, updateProfileDTO: UpdateProfileDTO): Any {
+        val userId = session.getAttribute<Long>("user_id") ?: throw ResponseStatusException(
+            HttpStatus.FORBIDDEN,
+            "No user id in session"
+        )
 
         val user = userRepo.findById(userId).get()
 

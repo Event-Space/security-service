@@ -18,5 +18,5 @@ class UserController (
 
     @SecureMe
     @PostMapping("/profile-update")
-    fun updateUserProfile(@RequestBody updateProfileDTO: UpdateProfileDTO) = userService.updateUserProfile(updateProfileDTO)
+    fun updateUserProfile(session: SessionMe, @RequestBody updateProfileDTO: UpdateProfileDTO) = userService.updateUserProfile(session, updateProfileDTO)
 }
